@@ -1,0 +1,38 @@
+<div class="container-fluid">
+
+
+<div class="navbar">
+  <div class="row">
+    <div class="col-md-9" style="background-color:yellow;">
+
+
+  <ul class="nav navbar-nav">
+    <li><a href="/">Home</a></li>
+    <li><a href="/">Services</a></li>
+    <li><a href="/">Contacts</a></li>
+  </ul>
+  </div>
+
+    <div class="col-md-3" style="background-color:yellow;">
+
+
+  <ul class="nav navbar-nav navbar-right btn-lg text-warning">
+    {% if current_user.is_authenticated %}
+    <div class="dropdown">
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">more
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="{{url_for('main.profile',uname=current_user.username)}}">my profile</a></li>
+        <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Orders</a></li>
+        <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+      </ul>
+    </div>
+
+    {% else %}
+    <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+    {%endif%}
+  </ul>
+  </div>
+</div>
+</div>
+</div>

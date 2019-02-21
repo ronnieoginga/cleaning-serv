@@ -1,0 +1,56 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<h3> {{user.username| capitalize}} </h3>
+<div class="container" style = "padding-top:70px;">
+<div class="row">
+<!-- displaying  Username-->
+  <div class="col-md-6" style = "background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYazDSAx2jnV8OhsDy2yVW95cUuTzZyVojHR_thAWLVN5s_iwdtg");">
+
+
+    <!--Displaying user bio-->
+    {% if user.bio %}
+      <p> {{user.bio}}</p>
+    {%else%}
+      <p> {{user.username| capitalize}}No email</p>
+    {% endif %}
+
+
+  <!--Display profile photo-->
+
+
+      {% if user.profile_pic_path %}
+      <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail" width="300" height="300" style = " border-radius: 50%;">
+      {%else%}
+      <p>No profile picture</p>
+      {% endif %}
+
+      {% if user == current_user %}
+    <form  action="{{url_for('main.update_pic',uname=user.username)}}" method="post" enctype = "multipart/form-data">
+
+      <input type="file"  name="photo" class="form-control" required>
+      <input type="submit">
+    </form>
+      {% endif %}
+
+  </div>
+  {% if user == current_user %}
+  <a href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a>
+{% endif %}
+  </div>
+  <div class="col-md-4">
+    {% for blog in blogs %}
+                <h4>Category: {{ blog.category }}</h4>
+
+                <p> {{ blog.title }}</p>
+                <p>{{ blog.content }} </p>
+                <p>{{ blog.date_of_blog }}</p>
+                <a href="/blog/{{blog.id}}">COMMENT</a>
+
+    {% endfor %}
+    <p class="btn-group-lg"><a href="/blog/new"><button type="button" class="btn btn-success">Make order</button></a></p>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
